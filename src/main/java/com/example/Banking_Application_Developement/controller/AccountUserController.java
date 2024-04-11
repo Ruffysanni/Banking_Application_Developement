@@ -14,10 +14,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/v1")
 public class AccountUserController {
-    @Autowired
-    private AccountUserService accountUserService;
+//    @Autowired
+    private final AccountUserService accountUserService;
 
-    // Create endpoints
+    public AccountUserController(AccountUserService accountUserService) {
+        this.accountUserService = accountUserService;
+    }
+// Create endpoints
 
     // Get all Account Users
     @GetMapping("/allAccountUsers")
@@ -26,42 +29,42 @@ public class AccountUserController {
     }
 
     // Get Account User By Id
-    @GetMapping("/account_user_id")
+    @GetMapping("/accountUser/id/{id}")
     public ResponseEntity<AccountUser> getAccountUserById(@PathVariable int id){
         return accountUserService.getAccountUserById(id);
     }
 
     // Get Account User By Phone Number
-    @GetMapping("/account_user_phone_number")
+    @GetMapping("/accountUser/phoneNumber/{phoneNumber}")
     public ResponseEntity<AccountUser> getAccountUserByPhone(@PathVariable String phoneNumber){
         return accountUserService.getAccountUserByPhoneNumber(phoneNumber);
     }
     // Get Account User By Email
-    @GetMapping("/account_user_phone_number")
+    @GetMapping("/accountUser/email/{email}")
     public ResponseEntity<AccountUser> getAccountUserByEmail(@PathVariable String email){
         return accountUserService.getAccountUserByEmail(email);
     }
 
     // Add new Account User
-    @PostMapping("/add_user")
+    @PostMapping("/addUser")
     public ResponseEntity<AccountUser> addNewAccountUser(@RequestBody @Valid AccountUser accountUser){
         return accountUserService.addNewAccountUser(accountUser);
     }
 
     // Update Account User
-    @PutMapping("/update_user")
+    @PutMapping("/updateUser/id/{id}")
     public ResponseEntity<AccountUser> updateAccountUser(@PathVariable int id, @RequestBody AccountUser accountUser){
         return accountUserService.updateAccountUser(id, accountUser);
     }
 
     // Update an existing Account user field
-    @PatchMapping("/update_user")
+    @PatchMapping("/patchUpdateUser/{id}")
     public ResponseEntity<AccountUser> updateOneFieldOfAccountUser(@PathVariable int id, @RequestBody  Map<String, Object> accountUser){
         return accountUserService.updateOneFieldOfAccountUser(id, accountUser);
     }
 
     // Remove an existing user
-    @DeleteMapping("/delete_user")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<AccountUser> deleteAccountUser(@PathVariable int id){
         return accountUserService.removeAccountUser(id);
     }

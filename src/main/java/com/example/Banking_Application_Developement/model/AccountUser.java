@@ -5,33 +5,35 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.IdGeneratorType;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.hateoas.RepresentationModel;
 
 
 @Entity
-@Table(name="account_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "phone_number"}))
-public class AccountUser {
+//@Table(name="account_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "phone_number"}))
+public class AccountUser extends RepresentationModel<AccountUser> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Length(min=2, max=40)
-    @NotBlank
+    @NotBlank(message = "This field cannot be blank")
     private String firstName;
 
     @Length(min=2, max=40)
     private String middleName;
 
     @Length(min=2, max=40)
-    @NotBlank
+    @NotBlank(message = "This field cannot be blank")
     private String lastName;
 
-    @Email
+    @Email(message = "Provide a valid email address")
+    @NotBlank(message = "This field cannot be blank")
     private String email;
-    @NotBlank
+    @NotBlank(message = "This field cannot be blank")
     @Length(min=8, max=20)
     private String password;
-    @NotBlank
+    @NotBlank(message = "This field cannot be blank")
     private String phoneNumber;
 
     public String getFirstName() {
@@ -72,6 +74,10 @@ public class AccountUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getPhoneNumber() {

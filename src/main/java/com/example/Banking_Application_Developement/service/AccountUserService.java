@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,14 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+//@Component
 public class AccountUserService {
-    @Autowired
-    private AccountUserRepository accountUserRepository;
+//    @Autowired
+    private final AccountUserRepository accountUserRepository;
+
+    public AccountUserService(AccountUserRepository accountUserRepository) {
+        this.accountUserRepository = accountUserRepository;
+    }
 
     // Get all Account users
     public ResponseEntity<List<AccountUser>> getAllAccountUsers(){
@@ -28,7 +34,7 @@ public class AccountUserService {
     }
     // Get Account user by email
     public ResponseEntity<AccountUser> getAccountUserByEmail(String email){
-        return new ResponseEntity<>(accountUserRepository.findByAccountUserEmail(email), HttpStatus.OK);
+        return new ResponseEntity<>(accountUserRepository.findByEmail(email), HttpStatus.OK);
     }
     // Get Account user by PhoneNumber
     public ResponseEntity<AccountUser> getAccountUserByPhoneNumber(String phoneNumber){
@@ -86,6 +92,7 @@ public class AccountUserService {
     // Remove Account User
     public ResponseEntity<AccountUser> removeAccountUser(int id){
         return new ResponseEntity<>(accountUserRepository.findById(id).get(), HttpStatus.OK);
+//        return new ResponseEntity<>(accountUserRepository.findById(id).get(), HttpStatus.NO_CONTENT);
     }
 
 }
