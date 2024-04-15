@@ -7,6 +7,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.tags.HtmlEscapeTag;
 
 
 @RestController
-@RequestMapping("/resource")
+@RequestMapping("/resources")
 public class AccountResourceController {
     private AccountUserService accountUserService;
 
@@ -22,6 +23,7 @@ public class AccountResourceController {
         this.accountUserService = accountUserService;
     }
 
+    @GetMapping("/resource/{id}")
     public ResponseEntity<AccountResource> getAccountResource(@PathVariable int id){
         AccountUser accountUserToSend = accountUserService.getAccountUserById(id).getBody();
         AccountResource accountResource = new AccountResource();
