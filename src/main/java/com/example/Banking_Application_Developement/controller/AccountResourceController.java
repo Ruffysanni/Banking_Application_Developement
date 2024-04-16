@@ -23,7 +23,11 @@ public class AccountResourceController {
         this.accountUserService = accountUserService;
     }
 
+<<<<<<< HEAD
     @GetMapping("/resource/{id}")
+=======
+    @GetMapping("resources/{id}")
+>>>>>>> branchTwo
     public ResponseEntity<AccountResource> getAccountResource(@PathVariable int id){
         AccountUser accountUserToSend = accountUserService.getAccountUserById(id).getBody();
         AccountResource accountResource = new AccountResource();

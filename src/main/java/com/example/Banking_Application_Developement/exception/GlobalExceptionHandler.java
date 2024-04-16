@@ -33,6 +33,7 @@ public class GlobalExceptionHandler {
     public String handleNotFoundException(Exception e){
         return e.getMessage();
     }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public String handleSQLIntegrityViolation(SQLIntegrityConstraintViolationException e){
